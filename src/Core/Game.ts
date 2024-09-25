@@ -83,7 +83,6 @@ export class Game {
      * The main game loop. Clear the screen, update the game objects and then draw them.
      */
     run() {
-        console.log('loop')
         this.canvas.clearCanvas();
 
         this.updateGameWindow();
@@ -135,7 +134,6 @@ export class Game {
      * Handle keypresses and delegate to any game objects that might have key handling of their own.
      */
     handleKeyDown(event: KeyboardEvent) {
-        console.log('event', event)
         let handled: boolean = this.skier.handleInput(event.code);
 
         if (handled) {

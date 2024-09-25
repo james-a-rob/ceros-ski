@@ -32,7 +32,7 @@ export class ImageManager {
      * Load a single image and return a promise that resolves when the image is finished loading.
      */
     loadSingleImage(image: iImage): Promise<void> {
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             const loadedImage = new Image();
             loadedImage.onload = () => {
                 loadedImage.width *= SCALE;
@@ -40,6 +40,9 @@ export class ImageManager {
 
                 this.loadedImages[image.name] = loadedImage;
                 resolve();
+            };
+            loadedImage.onerror = () => {
+                reject(new Error(`Failed to load image: ${image.url}`));
             };
             loadedImage.src = image.url;
         });

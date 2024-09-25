@@ -132,6 +132,7 @@ export class Skier extends Entity {
         if (this.isSkiing()) {
             this.move();
             this.checkIfHitObstacle();
+            //check if hit jump method?
         }
     }
 
@@ -220,7 +221,6 @@ export class Skier extends Entity {
      * Handle keyboard input. If the skier is dead, don't handle any input.
      */
     handleInput(inputCode: string) {
-        console.log('inputKey', inputCode)
         if (this.isDead()) {
             return false;
         }
@@ -310,7 +310,7 @@ export class Skier extends Entity {
 
     /**
      * The skier has a bit different bounds calculating than a normal entity to make the collision with obstacles more
-     * natural. We want te skier to end up in the obstacle rather than right above it when crashed, so move the bottom
+     * natural. We want the skier to end up in the obstacle rather than right above it when crashed, so move the bottom
      * boundary up.
      */
     getBounds(): Rect | null {
@@ -331,6 +331,7 @@ export class Skier extends Entity {
      * Go through all the obstacles in the game and see if the skier collides with any of them. If so, crash the skier.
      */
     checkIfHitObstacle() {
+
         const skierBounds = this.getBounds();
         if (!skierBounds) {
             return;
@@ -338,18 +339,24 @@ export class Skier extends Entity {
 
         const collision = this.obstacleManager.getObstacles().find((obstacle: Obstacle): boolean => {
             const obstacleBounds = obstacle.getBounds();
-            if (obstacle.imageName === "jumpRamp") {
-                return false;
-            }
+
             if (!obstacleBounds) {
                 return false;
             }
 
             return intersectTwoRects(skierBounds, obstacleBounds);
         });
+        if (collision && collision.imageName === IMAGE_NAMES.JUMP_RAMP) {
+            console.log('jump')
+
+            // this.jump();
+            return;
+        }
 
         if (collision) {
+            console.log('crash')
             this.crash();
+            return;
         }
     }
 
