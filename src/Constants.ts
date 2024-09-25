@@ -9,6 +9,7 @@ export enum KEYS {
     RIGHT = "ArrowRight",
     UP = "ArrowUp",
     DOWN = "ArrowDown",
+    SPACE = "Space"
 }
 
 export enum IMAGE_NAMES {
@@ -18,6 +19,7 @@ export enum IMAGE_NAMES {
     SKIER_DOWN = "skierDown",
     SKIER_RIGHTDOWN = "skierRightDown",
     SKIER_RIGHT = "skierRight",
+    JUMP_RAMP = "jumpRamp",
     TREE = "tree",
     TREE_CLUSTER = "treeCluster",
     ROCK1 = "rock1",
@@ -40,6 +42,7 @@ export const IMAGES: iImage[] = [
     { name: IMAGE_NAMES.SKIER_DOWN, url: "img/skier_down.png" },
     { name: IMAGE_NAMES.SKIER_RIGHTDOWN, url: "img/skier_right_down.png" },
     { name: IMAGE_NAMES.SKIER_RIGHT, url: "img/skier_right.png" },
+    { name: IMAGE_NAMES.JUMP_RAMP, url: "img/jump_ramp.png" },
     { name: IMAGE_NAMES.TREE, url: "img/tree_1.png" },
     { name: IMAGE_NAMES.TREE_CLUSTER, url: "img/tree_cluster.png" },
     { name: IMAGE_NAMES.ROCK1, url: "img/rock_1.png" },
@@ -57,3 +60,5 @@ export const IMAGES: iImage[] = [
 
 export const ANIMATION_FRAME_SPEED_MS: number = 250;
 export const DIAGONAL_SPEED_REDUCER: number = 1.4142;
+
+// export const AIR_TIME: number = 1;

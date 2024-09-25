@@ -54,10 +54,11 @@ export class Game {
     init() {
         this.canvas = new Canvas(GAME_CANVAS, GAME_WIDTH, GAME_HEIGHT);
         this.imageManager = new ImageManager();
+
         this.obstacleManager = new ObstacleManager(this.imageManager, this.canvas);
 
         this.skier = new Skier(0, 0, this.imageManager, this.obstacleManager, this.canvas);
-        this.rhino = new Rhino(-500, -2000, this.imageManager, this.canvas);
+        this.rhino = new Rhino(-5000000, -200000000, this.imageManager, this.canvas);
 
         this.calculateGameWindow();
         this.obstacleManager.placeInitialObstacles();
@@ -82,6 +83,7 @@ export class Game {
      * The main game loop. Clear the screen, update the game objects and then draw them.
      */
     run() {
+        console.log('loop')
         this.canvas.clearCanvas();
 
         this.updateGameWindow();
@@ -133,7 +135,8 @@ export class Game {
      * Handle keypresses and delegate to any game objects that might have key handling of their own.
      */
     handleKeyDown(event: KeyboardEvent) {
-        let handled: boolean = this.skier.handleInput(event.key);
+        console.log('event', event)
+        let handled: boolean = this.skier.handleInput(event.code);
 
         if (handled) {
             event.preventDefault();

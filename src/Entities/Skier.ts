@@ -211,14 +211,15 @@ export class Skier extends Entity {
     /**
      * Handle keyboard input. If the skier is dead, don't handle any input.
      */
-    handleInput(inputKey: string) {
+    handleInput(inputCode: string) {
+        console.log('inputKey', inputCode)
         if (this.isDead()) {
             return false;
         }
 
         let handled: boolean = true;
 
-        switch (inputKey) {
+        switch (inputCode) {
             case KEYS.LEFT:
                 this.turnLeft();
                 break;
@@ -229,6 +230,9 @@ export class Skier extends Entity {
                 this.turnUp();
                 break;
             case KEYS.DOWN:
+                this.turnDown();
+                break;
+            case KEYS.SPACE:
                 this.turnDown();
                 break;
             default:
@@ -326,6 +330,9 @@ export class Skier extends Entity {
 
         const collision = this.obstacleManager.getObstacles().find((obstacle: Obstacle): boolean => {
             const obstacleBounds = obstacle.getBounds();
+            if (obstacle.imageName === "jumpRamp") {
+                return false;
+            }
             if (!obstacleBounds) {
                 return false;
             }

@@ -153,7 +153,6 @@ export class ObstacleManager {
         } while (!position);
 
         const newObstacle = new Obstacle(position.x, position.y, this.imageManager, this.canvas);
-
         this.obstacles.push(newObstacle);
     }
 
