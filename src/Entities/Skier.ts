@@ -83,7 +83,7 @@ export class Skier extends Entity {
     }
 
     /**
-     * Is the skier currently in the crashed state
+     * Is the skier currently in the jumping state
      */
     isJumping(): boolean {
         return this.state === STATES.STATE_JUMPING;
@@ -129,6 +129,12 @@ export class Skier extends Entity {
      * Move the skier and check to see if they've hit an obstacle. The skier only moves in the skiing state.
      */
     update() {
+        if (this.isJumping()) {
+            this.move();
+            this.checkIfHitObstacle();
+            // this.land();
+        }
+
         if (this.isSkiing()) {
             this.move();
             this.checkIfHitObstacle();
@@ -241,7 +247,7 @@ export class Skier extends Entity {
                 this.turnDown();
                 break;
             case KEYS.SPACE:
-                this.turnDown();
+                this.jump();
                 break;
             default:
                 handled = false;
@@ -346,10 +352,16 @@ export class Skier extends Entity {
 
             return intersectTwoRects(skierBounds, obstacleBounds);
         });
+
+        if (collision && collision.imageName === IMAGE_NAMES.TREE && this.isJumping()) {
+            console.log('jump ing tree')
+            return;
+        }
+
         if (collision && collision.imageName === IMAGE_NAMES.JUMP_RAMP) {
             console.log('jump')
 
-            // this.jump();
+            this.jump();
             return;
         }
 
@@ -358,6 +370,30 @@ export class Skier extends Entity {
             this.crash();
             return;
         }
+    }
+
+    /**
+     * Updates the state of the component.
+     *
+     * This function performs the following actions:
+     * - Loops through the array of jump images.
+     * - Resets the state to the takeoff state.
+     */
+    jump() {
+        this.state = STATES.STATE_JUMPING;
+        this.imageName = IMAGE_NAMES.SKIER_JUMP_1;
+        // this.state = STATES.STATE_SKIING;
+
+
+        // update state
+        // loop through jump images array
+        // reset to takeoff state
+    }
+
+    land() {
+        this.state = STATES.STATE_SKIING;
+        this.imageName = IMAGE_NAMES.SKIER_DOWN;
+
     }
 
     /**

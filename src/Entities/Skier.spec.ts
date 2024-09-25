@@ -1,6 +1,6 @@
 import 'jest-canvas-mock';
 import { ImageManager } from "../Core/ImageManager";
-import { IMAGE_NAMES, IMAGES } from '../Constants';
+import { IMAGE_NAMES, IMAGES, KEYS } from '../Constants';
 import { Obstacle } from './Obstacles/Obstacle';
 import { ObstacleManager } from "./Obstacles/ObstacleManager";
 import { Canvas } from "../Core/Canvas";
@@ -10,6 +10,7 @@ import { Skier } from "./Skier";
  * These are clientside integration tests. There is not much mocking. Consider adding lower level unit tests to improve coverage
  */
 
+// mock image loading
 beforeEach(() => {
     // Define a mock Image class
     global.Image = class {
@@ -30,7 +31,7 @@ beforeEach(() => {
 
 describe('Skier', () => {
     describe('jumping', () => {
-        it('gets air when hitting a jump', async () => {
+        it('enters jumping state when hitting a jump', async () => {
 
             document.body.innerHTML = `<div><canvas id="game-canvas"></canvas></div>`;
 
@@ -46,17 +47,77 @@ describe('Skier', () => {
             jump.imageName = IMAGE_NAMES.JUMP_RAMP;
             obstacleManager.obstacles.push(jump)
 
+
+            // is in air
             skier.update();
+            console.log(skier.position)
             expect(skier.isJumping()).toBe(true);
+
+
+            // continues to move forward while airborne
+            skier.update();
+            expect(skier.position.y).toBe(20);
+
+            // returns to skiing state
+            skier.update();
+
+
         });
 
-        // it('gets air when player hits space bar', () => {
-        //     expect(1).toBe(2);
-        // });
+        it('enters jumping state when player hits space bar', async () => {
+            document.body.innerHTML = `<div><canvas id="game-canvas"></canvas></div>`;
 
-        // it('does not crash into tree when in the air', () => {
-        //     expect(1).toBe(2);
-        // });
+            const imageManager = new ImageManager();
+            await imageManager.loadImages(IMAGES);
+
+            const canvas = new Canvas("game-canvas", 300, 300);
+            const obstacleManager = new ObstacleManager(imageManager, canvas);
+            const skier = new Skier(0, 0, imageManager, obstacleManager, canvas);
+
+            skier.handleInput(KEYS.SPACE)
+            // is in air
+            skier.update();
+            console.log(skier.position)
+            expect(skier.isJumping()).toBe(true);
+
+
+            // continues to move forward while airborne
+            skier.update();
+            expect(skier.position.y).toBe(20)
+
+        });
+
+        it('does not crash into tree when in the air', async () => {
+            document.body.innerHTML = `<div><canvas id="game-canvas"></canvas></div>`;
+
+            const imageManager = new ImageManager();
+            await imageManager.loadImages(IMAGES);
+
+            const canvas = new Canvas("game-canvas", 300, 300);
+            const obstacleManager = new ObstacleManager(imageManager, canvas);
+            const skier = new Skier(0, 0, imageManager, obstacleManager, canvas);
+
+            // set tree infront of skier. 
+            const tree = new Obstacle(0, 10, imageManager, canvas);
+            tree.imageName = IMAGE_NAMES.TREE;
+            obstacleManager.obstacles.push(tree)
+
+            skier.handleInput(KEYS.SPACE)
+
+            // is in air
+            skier.update();
+            console.log(skier.position)
+            expect(skier.isJumping()).toBe(true);
+
+
+            // continues to move forward while airborne
+            skier.update();
+            expect(skier.position.y).toBe(20)
+
+            // is not in crashed state
+            expect(skier.isCrashed()).toBe(false)
+
+        });
 
         // it('flips while in the air', () => {
 
