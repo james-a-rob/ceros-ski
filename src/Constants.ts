@@ -64,4 +64,4 @@ export const IMAGES: iImage[] = [
 export const ANIMATION_FRAME_SPEED_MS: number = 250;
 export const DIAGONAL_SPEED_REDUCER: number = 1.4142;
 
-// export const AIR_TIME: number = 1;
+export const AIR_TIME: number = 40;

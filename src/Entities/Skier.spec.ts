@@ -14,9 +14,11 @@ import { Skier } from "./Skier";
 beforeEach(() => {
     // Define a mock Image class
     global.Image = class {
+
         onload: (() => void) | null = null; // Type for onload
         onerror: ((error: Event) => void) | null = null; // Type for onerror
-
+        width: number = 55; // Default width
+        height: number = 47; // Default height
         // Setter for src to simulate image loading
         set src(url: string) {
             // Simulating successful loading
@@ -47,10 +49,8 @@ describe('Skier', () => {
             jump.imageName = IMAGE_NAMES.JUMP_RAMP;
             obstacleManager.obstacles.push(jump)
 
-
             // is in air
             skier.update();
-            console.log(skier.position)
             expect(skier.isJumping()).toBe(true);
 
 
@@ -60,7 +60,11 @@ describe('Skier', () => {
 
             // returns to skiing state
             skier.update();
+            skier.update();
+            skier.update();
 
+            expect(skier.position.y).toBe(60);
+            expect(skier.isJumping()).toBe(false);
 
         });
 
@@ -77,7 +81,6 @@ describe('Skier', () => {
             skier.handleInput(KEYS.SPACE)
             // is in air
             skier.update();
-            console.log(skier.position)
             expect(skier.isJumping()).toBe(true);
 
 
@@ -106,7 +109,6 @@ describe('Skier', () => {
 
             // is in air
             skier.update();
-            console.log(skier.position)
             expect(skier.isJumping()).toBe(true);
 
 

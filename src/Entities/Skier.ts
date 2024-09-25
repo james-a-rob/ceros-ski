@@ -3,7 +3,7 @@
  * angles, and crashes into obstacles they run into. If caught by the rhino, the skier will get eaten and die.
  */
 
-import { IMAGE_NAMES, DIAGONAL_SPEED_REDUCER, KEYS } from "../Constants";
+import { IMAGE_NAMES, DIAGONAL_SPEED_REDUCER, KEYS, AIR_TIME } from "../Constants";
 import { Entity } from "./Entity";
 import { Canvas } from "../Core/Canvas";
 import { ImageManager } from "../Core/ImageManager";
@@ -48,6 +48,8 @@ const DIRECTION_IMAGES: { [key: number]: IMAGE_NAMES } = {
 };
 
 export class Skier extends Entity {
+    jumpTakeOffPosition?: number;
+    airTime: number = AIR_TIME;
     /**
      * The name of the current image being displayed for the skier.
      */
@@ -86,6 +88,7 @@ export class Skier extends Entity {
      * Is the skier currently in the jumping state
      */
     isJumping(): boolean {
+        console.log('is jumping', this.state)
         return this.state === STATES.STATE_JUMPING;
     }
 
@@ -132,7 +135,7 @@ export class Skier extends Entity {
         if (this.isJumping()) {
             this.move();
             this.checkIfHitObstacle();
-            // this.land();
+            this.land();
         }
 
         if (this.isSkiing()) {
@@ -325,6 +328,9 @@ export class Skier extends Entity {
             return null;
         }
 
+        console.log('image', image)
+
+
         return new Rect(
             this.position.x - image.width / 2,
             this.position.y - image.height / 2,
@@ -353,20 +359,19 @@ export class Skier extends Entity {
             return intersectTwoRects(skierBounds, obstacleBounds);
         });
 
+        // jumping over a single tree
         if (collision && collision.imageName === IMAGE_NAMES.TREE && this.isJumping()) {
-            console.log('jump ing tree')
             return;
         }
 
+        // hiting a jump
         if (collision && collision.imageName === IMAGE_NAMES.JUMP_RAMP) {
-            console.log('jump')
-
             this.jump();
             return;
         }
 
+        // hitting any other obstacles
         if (collision) {
-            console.log('crash')
             this.crash();
             return;
         }
@@ -380,8 +385,17 @@ export class Skier extends Entity {
      * - Resets the state to the takeoff state.
      */
     jump() {
-        this.state = STATES.STATE_JUMPING;
-        this.imageName = IMAGE_NAMES.SKIER_JUMP_1;
+        // if (!this.jumpTakeOffPosition) {
+        //     this.jumpTakeOffPosition = this.position.y;
+
+        // }
+        if (this.state !== STATES.STATE_JUMPING) {
+            this.jumpTakeOffPosition = this.position.y;
+
+            this.state = STATES.STATE_JUMPING;
+            this.imageName = IMAGE_NAMES.SKIER_JUMP_1;
+        }
+
         // this.state = STATES.STATE_SKIING;
 
 
@@ -390,9 +404,21 @@ export class Skier extends Entity {
         // reset to takeoff state
     }
 
+    /**
+     * Checks if the skier has traveled far enough forward to initiate landing.
+     *
+     * This function determines whether the current distance traveled meets
+     * the criteria for landing.
+     */
     land() {
-        this.state = STATES.STATE_SKIING;
-        this.imageName = IMAGE_NAMES.SKIER_DOWN;
+        // if traveled far enough forwards then land
+        if (this.jumpTakeOffPosition && this.jumpTakeOffPosition + this.airTime === this.position.y) {
+            this.state = STATES.STATE_SKIING;
+            this.imageName = IMAGE_NAMES.SKIER_DOWN;
+            this.jumpTakeOffPosition = undefined;
+
+        }
+
 
     }
 

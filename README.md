@@ -100,3 +100,6 @@ We are looking forward to see what you come up with!!
  - Add watch test runing script
  - Install jest canvas
  - Draft walkthrough vid
+
+ **Known bugs**
+
