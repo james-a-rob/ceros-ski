@@ -23,6 +23,7 @@ const STARTING_SPEED: number = 10;
 enum STATES {
     STATE_SKIING = "skiing",
     STATE_CRASHED = "crashed",
+    STATE_JUMPING = "jumping",
     STATE_DEAD = "dead",
 }
 
@@ -79,6 +80,13 @@ export class Skier extends Entity {
         super(x, y, imageManager, canvas);
 
         this.obstacleManager = obstacleManager;
+    }
+
+    /**
+     * Is the skier currently in the crashed state
+     */
+    isJumping(): boolean {
+        return this.state === STATES.STATE_JUMPING;
     }
 
     /**

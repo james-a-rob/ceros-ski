@@ -96,3 +96,7 @@ We are looking forward to see what you come up with!!
 
 **Notes from James**
  - Not enough time to add full unit test coverage but wanted to included a few tests in the area of the codebase I was making most changes. Game Core etc
+ - Add jumps as another type of obsticle. They behave a little different e.g. you dont crash when you hit them. Might need to be their own type of entity
+ - Add watch test runing script
+ - Install jest canvas
+ - Draft walkthrough vid
