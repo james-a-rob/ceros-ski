@@ -88,7 +88,6 @@ export class Skier extends Entity {
      * Is the skier currently in the jumping state
      */
     isJumping(): boolean {
-        console.log('is jumping', this.state)
         return this.state === STATES.STATE_JUMPING;
     }
 
@@ -327,9 +326,6 @@ export class Skier extends Entity {
         if (!image) {
             return null;
         }
-
-        console.log('image', image)
-
 
         return new Rect(
             this.position.x - image.width / 2,

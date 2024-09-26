@@ -58,7 +58,7 @@ export class Game {
         this.obstacleManager = new ObstacleManager(this.imageManager, this.canvas);
 
         this.skier = new Skier(0, 0, this.imageManager, this.obstacleManager, this.canvas);
-        this.rhino = new Rhino(-5000000, -200000000, this.imageManager, this.canvas);
+        this.rhino = new Rhino(-5000, -2000, this.imageManager, this.canvas);
 
         this.calculateGameWindow();
         this.obstacleManager.placeInitialObstacles();

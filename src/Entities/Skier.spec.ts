@@ -10,9 +10,8 @@ import { Skier } from "./Skier";
  * These are clientside integration tests. There is not much mocking. Consider adding lower level unit tests to improve coverage
  */
 
-// mock image loading
+
 beforeEach(() => {
-    // Define a mock Image class
     global.Image = class {
 
         onload: (() => void) | null = null; // Type for onload
