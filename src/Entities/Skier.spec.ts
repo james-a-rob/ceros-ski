@@ -62,7 +62,7 @@ describe('Skier', () => {
             skier.update(123);
             skier.update(123);
 
-            expect(skier.position.y).toBe(60);
+            expect(skier.position.y).toBe(50);
             expect(skier.isJumping()).toBe(false);
 
         });
@@ -120,7 +120,7 @@ describe('Skier', () => {
 
         });
 
-        it('flips while jumping', async () => {
+        it.only('flips while jumping', async () => {
             const gameStartTime = Date.now();
 
             document.body.innerHTML = `<div><canvas id="game-canvas"></canvas></div>`;

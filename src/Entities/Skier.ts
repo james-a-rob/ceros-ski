@@ -84,7 +84,7 @@ export class Skier extends Entity {
         super(x, y, imageManager, canvas);
 
         this.obstacleManager = obstacleManager;
-        this.jumpAnimation = new Animation([IMAGE_NAMES.SKIER_JUMP_1, IMAGE_NAMES.SKIER_JUMP_1, IMAGE_NAMES.SKIER_JUMP_2], true, ANIMATION_FRAME_SPEED_MS, this.finishJumpAnimation.bind(this))
+        this.jumpAnimation = new Animation([IMAGE_NAMES.SKIER_JUMP_1, IMAGE_NAMES.SKIER_JUMP_2], false, ANIMATION_FRAME_SPEED_MS, this.finishJumpAnimation.bind(this))
     }
 
     /**
