@@ -35,19 +35,19 @@ export class Animation {
         this.callback = callback;
     }
 
-    animate(gameTime: number): void {
-
-        console.log(gameTime, this.curAnimationFrameTime)
-
+    nextFrame(gameTime: number): void {
         // should step forwards
         if (gameTime - this.curAnimationFrameTime > this.animationFrameSpeed) {
             this.curAnimationFrameTime = gameTime;
-
+            this.curAnimationFrame++;
             // if looping and last frame then return to 1
-            if (this.looping && this.curAnimationFrame >= this.images.length) {
-                this.curAnimationFrame = 0
+            if (this.curAnimationFrame >= this.images.length) {
+                if (this.looping) {
+                    this.curAnimationFrame = 0;
+                } else {
+                    this.callback && this.callback()
+                }
             } else {
-                this.curAnimationFrame = this.curAnimationFrame + 1;
 
             }
         }

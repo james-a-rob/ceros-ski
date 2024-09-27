@@ -3,10 +3,11 @@
  * angles, and crashes into obstacles they run into. If caught by the rhino, the skier will get eaten and die.
  */
 
-import { IMAGE_NAMES, DIAGONAL_SPEED_REDUCER, KEYS, AIR_TIME } from "../Constants";
+import { IMAGE_NAMES, DIAGONAL_SPEED_REDUCER, KEYS, AIR_TIME, ANIMATION_FRAME_SPEED_MS } from "../Constants";
 import { Entity } from "./Entity";
 import { Canvas } from "../Core/Canvas";
 import { ImageManager } from "../Core/ImageManager";
+import { Animation } from "../Core/Animation";
 import { intersectTwoRects, Rect } from "../Core/Utils";
 import { ObstacleManager } from "./Obstacles/ObstacleManager";
 import { Obstacle } from "./Obstacles/Obstacle";
@@ -48,6 +49,7 @@ const DIRECTION_IMAGES: { [key: number]: IMAGE_NAMES } = {
 };
 
 export class Skier extends Entity {
+    jumpAnimation: Animation;
     jumpTakeOffPosition?: number;
     airTime: number = AIR_TIME;
     /**
@@ -82,6 +84,7 @@ export class Skier extends Entity {
         super(x, y, imageManager, canvas);
 
         this.obstacleManager = obstacleManager;
+        this.jumpAnimation = new Animation([IMAGE_NAMES.SKIER_JUMP_1, IMAGE_NAMES.SKIER_JUMP_1, IMAGE_NAMES.SKIER_JUMP_2], true, ANIMATION_FRAME_SPEED_MS, this.finishJumpAnimation.bind(this))
     }
 
     /**
@@ -130,8 +133,16 @@ export class Skier extends Entity {
     /**
      * Move the skier and check to see if they've hit an obstacle. The skier only moves in the skiing state.
      */
-    update() {
+    update(gameTime: number) {
+        // this.imageName = IMAGE_NAMES.SKIER_JUMP_2;
+
         if (this.isJumping()) {
+            this.jumpAnimation.nextFrame(gameTime)
+            const nextAnimationImage = this.jumpAnimation.getImages()[this.jumpAnimation.getCurrentAnimationFrame()];
+            if (nextAnimationImage) {
+                this.imageName = nextAnimationImage;
+
+            }
             this.move();
             this.checkIfHitObstacle();
             this.land();
@@ -381,16 +392,12 @@ export class Skier extends Entity {
      * - Resets the state to the takeoff state.
      */
     jump() {
-        // if (!this.jumpTakeOffPosition) {
-        //     this.jumpTakeOffPosition = this.position.y;
-
-        // }
         if (this.state !== STATES.STATE_JUMPING) {
             this.jumpTakeOffPosition = this.position.y;
 
             this.state = STATES.STATE_JUMPING;
-            this.imageName = IMAGE_NAMES.SKIER_JUMP_1;
         }
+
 
         // this.state = STATES.STATE_SKIING;
 
@@ -398,6 +405,13 @@ export class Skier extends Entity {
         // update state
         // loop through jump images array
         // reset to takeoff state
+    }
+
+    finishJumpAnimation() {
+        this.imageName = IMAGE_NAMES.SKIER_DOWN;
+
+        // this.state = STATES.STATE_SKIING;
+
     }
 
     /**

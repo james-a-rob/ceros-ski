@@ -1,6 +1,6 @@
 import 'jest-canvas-mock';
 import { ImageManager } from "../Core/ImageManager";
-import { IMAGE_NAMES, IMAGES, KEYS } from '../Constants';
+import { IMAGE_NAMES, IMAGES, KEYS, ANIMATION_FRAME_SPEED_MS } from '../Constants';
 import { Obstacle } from './Obstacles/Obstacle';
 import { ObstacleManager } from "./Obstacles/ObstacleManager";
 import { Canvas } from "../Core/Canvas";
@@ -49,18 +49,18 @@ describe('Skier', () => {
             obstacleManager.obstacles.push(jump)
 
             // is in air
-            skier.update();
+            skier.update(123);
             expect(skier.isJumping()).toBe(true);
 
 
             // continues to move forward while airborne
-            skier.update();
+            skier.update(123);
             expect(skier.position.y).toBe(20);
 
             // returns to skiing state
-            skier.update();
-            skier.update();
-            skier.update();
+            skier.update(123);
+            skier.update(123);
+            skier.update(123);
 
             expect(skier.position.y).toBe(60);
             expect(skier.isJumping()).toBe(false);
@@ -79,12 +79,12 @@ describe('Skier', () => {
 
             skier.handleInput(KEYS.SPACE)
             // is in air
-            skier.update();
+            skier.update(123);
             expect(skier.isJumping()).toBe(true);
 
 
             // continues to move forward while airborne
-            skier.update();
+            skier.update(123);
             expect(skier.position.y).toBe(20)
 
         });
@@ -107,22 +107,54 @@ describe('Skier', () => {
             skier.handleInput(KEYS.SPACE)
 
             // is in air
-            skier.update();
+            skier.update(123);
             expect(skier.isJumping()).toBe(true);
 
 
             // continues to move forward while airborne
-            skier.update();
-            expect(skier.position.y).toBe(20)
+            skier.update(123);
+            expect(skier.position.y).toBe(20);
 
             // is not in crashed state
             expect(skier.isCrashed()).toBe(false)
 
         });
 
-        // it('flips while in the air', () => {
+        it('flips while jumping', async () => {
+            const gameStartTime = Date.now();
 
-        // });
+            document.body.innerHTML = `<div><canvas id="game-canvas"></canvas></div>`;
+
+            const imageManager = new ImageManager();
+            await imageManager.loadImages(IMAGES);
+
+            const canvas = new Canvas("game-canvas", 300, 300);
+            const obstacleManager = new ObstacleManager(imageManager, canvas);
+            const skier = new Skier(0, 0, imageManager, obstacleManager, canvas);
+
+            // set tree infront of skier. 
+            const tree = new Obstacle(0, 10, imageManager, canvas);
+            tree.imageName = IMAGE_NAMES.TREE;
+            obstacleManager.obstacles.push(tree)
+
+            skier.handleInput(KEYS.SPACE)
+
+            // is in air
+            skier.update(gameStartTime);
+            expect(skier.isJumping()).toBe(true);
+            expect(skier.imageName).toBe(IMAGE_NAMES.SKIER_JUMP_1);
+
+
+
+            // continues to move forward while airborne
+            skier.update(gameStartTime + ANIMATION_FRAME_SPEED_MS + 10);
+            expect(skier.position.y).toBe(20);
+            expect(skier.imageName).toBe(IMAGE_NAMES.SKIER_JUMP_2);
+
+            skier.update(gameStartTime + (ANIMATION_FRAME_SPEED_MS * 2) + 100);
+            expect(skier.imageName).toBe(IMAGE_NAMES.SKIER_DOWN);
+
+        });
 
     })
 });

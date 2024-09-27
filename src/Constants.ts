@@ -20,6 +20,7 @@ export enum IMAGE_NAMES {
     SKIER_RIGHTDOWN = "skierRightDown",
     SKIER_RIGHT = "skierRight",
     SKIER_JUMP_1 = "skierJump1",
+    SKIER_JUMP_2 = "skierJump2",
     JUMP_RAMP = "jumpRamp",
     TREE = "tree",
     TREE_CLUSTER = "treeCluster",
@@ -44,6 +45,8 @@ export const IMAGES: iImage[] = [
     { name: IMAGE_NAMES.SKIER_RIGHTDOWN, url: "img/skier_right_down.png" },
     { name: IMAGE_NAMES.SKIER_RIGHT, url: "img/skier_right.png" },
     { name: IMAGE_NAMES.SKIER_JUMP_1, url: "img/skier_jump_1.png" },
+    { name: IMAGE_NAMES.SKIER_JUMP_2, url: "img/skier_jump_2.png" },
+
 
     { name: IMAGE_NAMES.JUMP_RAMP, url: "img/jump_ramp.png" },
     { name: IMAGE_NAMES.TREE, url: "img/tree_1.png" },
@@ -64,4 +67,4 @@ export const IMAGES: iImage[] = [
 export const ANIMATION_FRAME_SPEED_MS: number = 250;
 export const DIAGONAL_SPEED_REDUCER: number = 1.4142;
 
-export const AIR_TIME: number = 40;
+export const AIR_TIME: number = 2 * ANIMATION_FRAME_SPEED_MS;

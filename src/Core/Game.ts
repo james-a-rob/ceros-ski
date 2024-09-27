@@ -102,7 +102,7 @@ export class Game {
 
         this.obstacleManager.placeNewObstacle(this.gameWindow, previousGameWindow);
 
-        this.skier.update();
+        this.skier.update(this.gameTime);
         this.rhino.update(this.gameTime, this.skier);
     }
 

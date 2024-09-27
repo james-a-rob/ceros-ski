@@ -142,12 +142,18 @@ export class Rhino extends Entity {
      */
     animate(gameTime: number) {
         if (!this.curAnimation) {
-            return;
+            return
         }
 
-        if (gameTime - this.curAnimationFrameTime > ANIMATION_FRAME_SPEED_MS) {
-            this.nextAnimationFrame(gameTime);
-        }
+        this.curAnimation?.nextFrame(gameTime)
+        this.imageName = this.curAnimation?.getImages()[this.curAnimation.getCurrentAnimationFrame()]
+        // if (!this.curAnimation) {
+        //     return;
+        // }
+
+        // if (gameTime - this.curAnimationFrameTime > ANIMATION_FRAME_SPEED_MS) {
+        //     this.nextAnimationFrame(gameTime);
+        // }
     }
 
     /**
