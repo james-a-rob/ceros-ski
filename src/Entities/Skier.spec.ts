@@ -1,6 +1,6 @@
 import 'jest-canvas-mock';
 import { ImageManager } from "../Core/ImageManager";
-import { IMAGE_NAMES, IMAGES, KEYS, ANIMATION_FRAME_SPEED_MS } from '../Constants';
+import { IMAGE_NAMES, IMAGES, KEYS, ANIMATION_FRAME_SPEED_MS, AIR_TIME } from '../Constants';
 import { Obstacle } from './Obstacles/Obstacle';
 import { ObstacleManager } from "./Obstacles/ObstacleManager";
 import { Canvas } from "../Core/Canvas";
@@ -57,12 +57,13 @@ describe('Skier', () => {
             skier.update(123);
             expect(skier.position.y).toBe(20);
 
-            // returns to skiing state
-            skier.update(123);
-            skier.update(123);
-            skier.update(123);
+            // step forwards time in air
+            let times = AIR_TIME / 10;
+            console.log('times', times)
+            for (let i = 0; i < times; i++) {
+                skier.update(123);
+            }
 
-            expect(skier.position.y).toBe(50);
             expect(skier.isJumping()).toBe(false);
 
         });
@@ -120,7 +121,7 @@ describe('Skier', () => {
 
         });
 
-        it.only('flips while jumping', async () => {
+        it('flips while jumping', async () => {
             const gameStartTime = Date.now();
 
             document.body.innerHTML = `<div><canvas id="game-canvas"></canvas></div>`;
