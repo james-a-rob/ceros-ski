@@ -39,5 +39,5 @@ export class Obstacle extends Entity {
     /**
      * Obstacles can't be destroyed
      */
-    die() { }
+    die() {}
 }

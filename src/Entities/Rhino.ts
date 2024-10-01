@@ -88,7 +88,12 @@ export class Rhino extends Entity {
     setupAnimations() {
         this.animations[STATES.STATE_RUNNING] = new Animation(IMAGES_RUNNING, true, ANIMATION_FRAME_SPEED_MS);
 
-        this.animations[STATES.STATE_EATING] = new Animation(IMAGES_EATING, false, ANIMATION_FRAME_SPEED_MS, this.celebrate.bind(this));
+        this.animations[STATES.STATE_EATING] = new Animation(
+            IMAGES_EATING,
+            false,
+            ANIMATION_FRAME_SPEED_MS,
+            this.celebrate.bind(this)
+        );
 
         this.animations[STATES.STATE_CELEBRATING] = new Animation(IMAGES_CELEBRATING, true, ANIMATION_FRAME_SPEED_MS);
     }
@@ -142,12 +147,11 @@ export class Rhino extends Entity {
      */
     animate(gameTime: number) {
         if (!this.curAnimation) {
-            return
+            return;
         }
 
-        this.curAnimation?.nextFrame(gameTime)
-        this.imageName = this.curAnimation?.getImages()[this.curAnimation.getCurrentAnimationFrame()]
-
+        this.curAnimation?.nextFrame(gameTime);
+        this.imageName = this.curAnimation?.getImages()[this.curAnimation.getCurrentAnimationFrame()];
     }
 
     /**
@@ -240,5 +244,5 @@ export class Rhino extends Entity {
     /**
      * Nothing can kill the rhino...yet!
      */
-    die() { }
+    die() {}
 }

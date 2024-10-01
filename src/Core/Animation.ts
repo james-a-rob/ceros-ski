@@ -43,19 +43,16 @@ export class Animation {
 
         // check if should step forwards
         if (gameTime - this.curAnimationFrameTime >= this.animationFrameSpeed) {
-
-
             // check if reached last image
             if (this.curAnimationFrame === this.images.length - 1) {
                 if (this.looping) {
                     this.curAnimationFrame = 0;
                     this.curAnimationFrameTime = gameTime;
-
                 } else {
                     this.curAnimationFrameTime = null;
                     this.curAnimationFrame = 0;
 
-                    this.callback && this.callback()
+                    this.callback && this.callback();
                 }
             } else {
                 this.curAnimationFrameTime = gameTime;
@@ -65,14 +62,12 @@ export class Animation {
     }
 
     getImages(): IMAGE_NAMES[] {
-
         return this.images;
     }
 
     getCurrentAnimationFrame(): number {
         return this.curAnimationFrame;
     }
-
 
     getLooping(): boolean {
         return this.looping;

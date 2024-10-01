@@ -95,23 +95,25 @@ how creative candidates get with this.
 We are looking forward to see what you come up with!!
 
 **Notes from James**
- - Not enough time to add full unit test coverage but wanted to included a few tests in the area of the codebase I was making most changes. Skier entity and animation class
- - Add jumps as another type of obsticle. They behave a little different e.g. you dont crash when you hit them. Might need to be their own type of entity
- - Add watch test runing script
- - Install jest canvas
- - Draft walkthrough vid
 
- **Known bugs**
- - lots of repeasted code in checkIfHitObstacle
- - can only jump single trees. This could be a feature
- - Slight visual glitch on land
+-   Not enough time to add full unit test coverage but wanted to included a few tests in the area of the codebase I was making most changes. Skier entity and animation class
+-   Add jumps as another type of obsticle. They behave a little different e.g. you dont crash when you hit them. Might need to be their own type of entity
+-   Add watch test runing script
+-   Install jest canvas
+-   Draft walkthrough vid
 
- **Vid**
- - test overview
- - Main code changes
- - Deployment
- - demo
- - Known bugs
- - Git log for context
- - Deploy pipeline
+**Known bugs**
 
+-   lots of repeasted code in checkIfHitObstacle
+-   can only jump single trees. This could be a feature
+-   Slight visual glitch on land
+
+**Vid**
+
+-   test overview
+-   Main code changes
+-   Deployment
+-   demo
+-   Known bugs
+-   Git log for context
+-   Deploy pipeline

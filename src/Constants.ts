@@ -9,7 +9,7 @@ export enum KEYS {
     RIGHT = "ArrowRight",
     UP = "ArrowUp",
     DOWN = "ArrowDown",
-    SPACE = "Space"
+    SPACE = "Space",
 }
 
 export enum IMAGE_NAMES {
@@ -46,7 +46,6 @@ export const IMAGES: iImage[] = [
     { name: IMAGE_NAMES.SKIER_RIGHT, url: "img/skier_right.png" },
     { name: IMAGE_NAMES.SKIER_JUMP_1, url: "img/skier_jump_1.png" },
     { name: IMAGE_NAMES.SKIER_JUMP_2, url: "img/skier_jump_2.png" },
-
 
     { name: IMAGE_NAMES.JUMP_RAMP, url: "img/jump_ramp.png" },
     { name: IMAGE_NAMES.TREE, url: "img/tree_1.png" },

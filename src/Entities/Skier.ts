@@ -84,7 +84,11 @@ export class Skier extends Entity {
         super(x, y, imageManager, canvas);
 
         this.obstacleManager = obstacleManager;
-        this.jumpAnimation = new Animation([IMAGE_NAMES.SKIER_JUMP_1, IMAGE_NAMES.SKIER_JUMP_2], false, ANIMATION_FRAME_SPEED_MS)
+        this.jumpAnimation = new Animation(
+            [IMAGE_NAMES.SKIER_JUMP_1, IMAGE_NAMES.SKIER_JUMP_2],
+            false,
+            ANIMATION_FRAME_SPEED_MS
+        );
     }
 
     /**
@@ -135,11 +139,10 @@ export class Skier extends Entity {
      */
     update(gameTime: number) {
         if (this.isJumping()) {
-            this.jumpAnimation.nextFrame(gameTime)
+            this.jumpAnimation.nextFrame(gameTime);
             const nextAnimationImage = this.jumpAnimation.getImages()[this.jumpAnimation.getCurrentAnimationFrame()];
             if (nextAnimationImage) {
                 this.imageName = nextAnimationImage;
-
             }
 
             this.move();
@@ -349,7 +352,6 @@ export class Skier extends Entity {
      * Go through all the obstacles in the game and see if the skier collides with any of them. If so, crash the skier.
      */
     checkIfHitObstacle() {
-
         const skierBounds = this.getBounds();
         if (!skierBounds) {
             return;
@@ -397,9 +399,7 @@ export class Skier extends Entity {
             this.state = STATES.STATE_JUMPING;
         }
 
-
         // this.state = STATES.STATE_SKIING;
-
 
         // update state
         // loop through jump images array
@@ -422,10 +422,7 @@ export class Skier extends Entity {
             this.state = STATES.STATE_SKIING;
             this.imageName = IMAGE_NAMES.SKIER_DOWN;
             this.jumpTakeOffPosition = undefined;
-
         }
-
-
     }
 
     /**
