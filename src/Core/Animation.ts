@@ -46,12 +46,13 @@ export class Animation {
 
 
             // if looping and last frame then return to 1
-            console.log('this.curAnimationFrame >= this.images.length', this.curAnimationFrame, this.images.length)
             if (this.curAnimationFrame >= this.images.length - 1) {
                 if (this.looping) {
                     this.curAnimationFrame = 0;
                 } else {
                     this.curAnimationFrameTime = null;
+                    this.curAnimationFrame = 0;
+
                     this.callback && this.callback()
                 }
             } else {
