@@ -82,7 +82,7 @@ describe("Skier", () => {
             expect(skier.position.y).toBe(20);
         });
 
-        it("does not crash into rock when in the air", async () => {
+        it("does not crash into rocks when in the air", async () => {
             document.body.innerHTML = `<div><canvas id="game-canvas"></canvas></div>`;
 
             const imageManager = new ImageManager();
