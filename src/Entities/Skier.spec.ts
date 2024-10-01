@@ -82,7 +82,7 @@ describe("Skier", () => {
             expect(skier.position.y).toBe(20);
         });
 
-        it("does not crash into tree when in the air", async () => {
+        it("does not crash into rock when in the air", async () => {
             document.body.innerHTML = `<div><canvas id="game-canvas"></canvas></div>`;
 
             const imageManager = new ImageManager();
@@ -92,10 +92,10 @@ describe("Skier", () => {
             const obstacleManager = new ObstacleManager(imageManager, canvas);
             const skier = new Skier(0, 0, imageManager, obstacleManager, canvas);
 
-            // set tree infront of skier.
-            const tree = new Obstacle(0, 10, imageManager, canvas);
-            tree.imageName = IMAGE_NAMES.TREE;
-            obstacleManager.obstacles.push(tree);
+            // set rock infront of skier.
+            const rock = new Obstacle(0, 10, imageManager, canvas);
+            rock.imageName = IMAGE_NAMES.ROCK1;
+            obstacleManager.obstacles.push(rock);
 
             skier.handleInput(KEYS.SPACE);
 
@@ -122,11 +122,6 @@ describe("Skier", () => {
             const canvas = new Canvas("game-canvas", 300, 300);
             const obstacleManager = new ObstacleManager(imageManager, canvas);
             const skier = new Skier(0, 0, imageManager, obstacleManager, canvas);
-
-            // set tree infront of skier.
-            const tree = new Obstacle(0, 10, imageManager, canvas);
-            tree.imageName = IMAGE_NAMES.TREE;
-            obstacleManager.obstacles.push(tree);
 
             skier.handleInput(KEYS.SPACE);
 

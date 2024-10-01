@@ -367,8 +367,8 @@ export class Skier extends Entity {
             return intersectTwoRects(skierBounds, obstacleBounds);
         });
 
-        // jumping over a single tree
-        if (collision && collision.imageName === IMAGE_NAMES.TREE && this.isJumping()) {
+        // jumping over a rock
+        if (collision && this.isJumping() && (collision.imageName === IMAGE_NAMES.ROCK1 || collision.imageName === IMAGE_NAMES.ROCK2)) {
             return;
         }
 
