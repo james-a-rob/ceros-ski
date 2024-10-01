@@ -1,16 +1,21 @@
-# Notes from James
-Video overview - 
+# Notes from interviewee
+
+Spent around 3 hours on project. I took a TDD approach where possible.
+Feel free to use the git log learn more about steps I took.
+
 ## Work done
-- Added ability to jump both rock variations.
-- Refactored Rhino animation into the Animation class.
-- Added tests for most impacted code.
-- Deployed here - https://ceros-ski-chi.vercel.app
+
+-   Added ability to jump both rock variations.
+-   Refactored Rhino animation into the Animation class for resuse.
+-   Added tests for most impacted code i.e. Skier and Animation.
+-   Deployed here - https://ceros-ski-chi.vercel.app
 
 ## Known issues
-- Slight visual glitch when skier lands
+-   Slight visual glitch when skier lands.
+-   Jumping diagonally lands skier in the down position and not the diagonal position. Need to check if this is a bug or a feature.
+-   Overly complex obstacle collision detection logic. Would become hard to read.
 
-
-
+___
 
 # Ceros Ski Code Challenge - TypeScript Edition
 

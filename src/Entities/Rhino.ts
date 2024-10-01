@@ -203,5 +203,5 @@ export class Rhino extends Entity {
     /**
      * Nothing can kill the rhino...yet!
      */
-    die() { }
+    die() {}
 }

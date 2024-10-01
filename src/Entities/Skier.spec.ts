@@ -7,25 +7,24 @@ import { Canvas } from "../Core/Canvas";
 import { Skier } from "./Skier";
 
 /**
- * These are clientside integration tests. There is not much mocking. Consider adding lower level unit tests to improve coverage
+ * These test validate the intigration of a number of components. There is not much mocking. Consider adding lower level unit tests to improve coverage
  */
 
 beforeEach(() => {
     global.Image = class {
-        onload: (() => void) | null = null; // Type for onload
-        onerror: ((error: Event) => void) | null = null; // Type for onerror
-        width: number = 55; // Default width
-        height: number = 47; // Default height
-        // Setter for src to simulate image loading
+        onload: (() => void) | null = null;
+        onerror: ((error: Event) => void) | null = null;
+        width: number = 55;
+        height: number = 47;
+
         set src(url: string) {
-            // Simulating successful loading
             setTimeout(() => {
                 if (this.onload) {
-                    this.onload(); // Call onload if it exists
+                    this.onload();
                 }
             }, 0);
         }
-    } as unknown as typeof Image; // Cast to the type of the global Image
+    } as unknown as typeof Image;
 });
 
 describe("Skier", () => {
@@ -73,6 +72,7 @@ describe("Skier", () => {
             const skier = new Skier(0, 0, imageManager, obstacleManager, canvas);
 
             skier.handleInput(KEYS.SPACE);
+
             // is in air
             skier.update(123);
             expect(skier.isJumping()).toBe(true);

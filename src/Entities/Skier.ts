@@ -49,9 +49,21 @@ const DIRECTION_IMAGES: { [key: number]: IMAGE_NAMES } = {
 };
 
 export class Skier extends Entity {
+    /**
+     * The animation sequence for the skier's jump.
+     */
     jumpAnimation: Animation;
+
+    /**
+     * The skier's position at the moment of takeoff for the jump.
+     */
     jumpTakeOffPosition?: number;
+
+    /**
+     * The total time the skier spends in the air during a jump.
+     */
     airTime: number = AIR_TIME;
+
     /**
      * The name of the current image being displayed for the skier.
      */
@@ -153,7 +165,6 @@ export class Skier extends Entity {
         if (this.isSkiing()) {
             this.move();
             this.checkIfHitObstacle();
-            //check if hit jump method?
         }
     }
 
@@ -368,7 +379,11 @@ export class Skier extends Entity {
         });
 
         // jumping over a rock
-        if (collision && this.isJumping() && (collision.imageName === IMAGE_NAMES.ROCK1 || collision.imageName === IMAGE_NAMES.ROCK2)) {
+        if (
+            collision &&
+            this.isJumping() &&
+            (collision.imageName === IMAGE_NAMES.ROCK1 || collision.imageName === IMAGE_NAMES.ROCK2)
+        ) {
             return;
         }
 
@@ -398,12 +413,6 @@ export class Skier extends Entity {
 
             this.state = STATES.STATE_JUMPING;
         }
-
-        // this.state = STATES.STATE_SKIING;
-
-        // update state
-        // loop through jump images array
-        // reset to takeoff state
     }
 
     /**
