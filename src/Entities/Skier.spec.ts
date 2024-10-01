@@ -146,17 +146,14 @@ describe('Skier', () => {
 
 
             // animates to new image after enough air time
-            console.log("START seconds update")
             skier.position.y = 200;
             skier.update(gameStartTime + ANIMATION_FRAME_SPEED_MS + 10);
-            console.log('NOW CHECK IMAGE')
             expect(skier.imageName).toBe(IMAGE_NAMES.SKIER_JUMP_2);
 
             // return to ski down state
             skier.position.y = 500;
 
             skier.update(gameStartTime + (ANIMATION_FRAME_SPEED_MS * 2) + 100);
-            console.log("TEST FINAL IMAGE")
             expect(skier.imageName).toBe(IMAGE_NAMES.SKIER_DOWN);
 
         });
