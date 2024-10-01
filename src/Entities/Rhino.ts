@@ -155,47 +155,6 @@ export class Rhino extends Entity {
     }
 
     /**
-     * Increase the current animation frame and update the image based upon the sequence of images for the animation.
-     * If the animation isn't looping, then finish the animation instead.
-     */
-    nextAnimationFrame(gameTime: number) {
-        if (!this.curAnimation) {
-            return;
-        }
-
-        const animationImages = this.curAnimation.getImages();
-
-        this.curAnimationFrameTime = gameTime;
-        this.curAnimationFrame++;
-        if (this.curAnimationFrame >= animationImages.length) {
-            if (!this.curAnimation.getLooping()) {
-                this.finishAnimation();
-                return;
-            }
-
-            this.curAnimationFrame = 0;
-        }
-
-        this.imageName = animationImages[this.curAnimationFrame];
-    }
-
-    /**
-     * The current animation wasn't looping, so finish it by clearing out the current animation and firing the callback.
-     */
-    finishAnimation() {
-        if (!this.curAnimation) {
-            return;
-        }
-
-        const animationCallback = this.curAnimation.getCallback();
-        this.curAnimation = null;
-
-        if (animationCallback) {
-            animationCallback.apply(null);
-        }
-    }
-
-    /**
      * Does the rhino collide with its target. If so, trigger the target as caught.
      */
     checkIfCaughtTarget(target: Entity) {
@@ -244,5 +203,5 @@ export class Rhino extends Entity {
     /**
      * Nothing can kill the rhino...yet!
      */
-    die() {}
+    die() { }
 }

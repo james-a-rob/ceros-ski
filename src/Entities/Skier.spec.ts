@@ -142,7 +142,6 @@ describe("Skier", () => {
 
             // return to ski down state
             skier.position.y = 500;
-
             skier.update(gameStartTime + ANIMATION_FRAME_SPEED_MS * 2 + 100);
             expect(skier.imageName).toBe(IMAGE_NAMES.SKIER_DOWN);
         });
