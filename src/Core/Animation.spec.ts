@@ -24,8 +24,8 @@ describe('animation', () => {
 
             //more times passes so should loop back to first image
             animation.nextFrame(gameStartTime + (ANIMATION_FRAME_SPEED_MS * 2) + 1)
-            expect(animation.getCurrentAnimationFrame()).toBe(1);
-            expect(animation.getImages()[animation.getCurrentAnimationFrame()]).toBe(IMAGE_NAMES.RHINO_CELEBRATE2)
+            expect(animation.getCurrentAnimationFrame()).toBe(0);
+            expect(animation.getImages()[animation.getCurrentAnimationFrame()]).toBe(IMAGE_NAMES.RHINO_CELEBRATE1)
 
         });
     });

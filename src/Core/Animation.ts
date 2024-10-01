@@ -36,18 +36,18 @@ export class Animation {
     }
 
     nextFrame(gameTime: number): void {
-
         // store time of first frame when starting animation
         if (!this.curAnimationFrameTime) {
             this.curAnimationFrameTime = Date.now();
         }
 
         // check if should step forwards
-        if (gameTime - this.curAnimationFrameTime > this.animationFrameSpeed) {
-            this.curAnimationFrameTime = gameTime;
-            this.curAnimationFrame++;
+        if (gameTime - this.curAnimationFrameTime >= this.animationFrameSpeed) {
+
+
             // if looping and last frame then return to 1
-            if (this.curAnimationFrame >= this.images.length) {
+            console.log('this.curAnimationFrame >= this.images.length', this.curAnimationFrame, this.images.length)
+            if (this.curAnimationFrame >= this.images.length - 1) {
                 if (this.looping) {
                     this.curAnimationFrame = 0;
                 } else {
@@ -55,7 +55,8 @@ export class Animation {
                     this.callback && this.callback()
                 }
             } else {
-
+                this.curAnimationFrameTime = gameTime;
+                this.curAnimationFrame++;
             }
         }
     }

@@ -134,17 +134,13 @@ export class Skier extends Entity {
      * Move the skier and check to see if they've hit an obstacle. The skier only moves in the skiing state.
      */
     update(gameTime: number) {
-        // this.imageName = IMAGE_NAMES.SKIER_JUMP_2;
-
         if (this.isJumping()) {
-            // debugger
-
+            this.jumpAnimation.nextFrame(gameTime)
             const nextAnimationImage = this.jumpAnimation.getImages()[this.jumpAnimation.getCurrentAnimationFrame()];
             if (nextAnimationImage) {
                 this.imageName = nextAnimationImage;
 
             }
-            this.jumpAnimation.nextFrame(gameTime)
 
             this.move();
             this.checkIfHitObstacle();
@@ -418,7 +414,11 @@ export class Skier extends Entity {
      */
     land() {
         // if traveled far enough forwards then land
-        if (this.jumpTakeOffPosition && this.jumpTakeOffPosition + this.airTime === this.position.y) {
+        if (this.jumpTakeOffPosition === undefined) {
+            return;
+        }
+
+        if (this.position.y >= this.jumpTakeOffPosition + this.airTime) {
             this.state = STATES.STATE_SKIING;
             this.imageName = IMAGE_NAMES.SKIER_DOWN;
             this.jumpTakeOffPosition = undefined;
