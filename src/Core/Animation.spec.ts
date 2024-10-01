@@ -15,15 +15,22 @@ describe('animation', () => {
             // not enough time passes to move to next frame
             animation.nextFrame(gameStartTime + (ANIMATION_FRAME_SPEED_MS / 2))
             expect(animation.getCurrentAnimationFrame()).toBe(0);
+            expect(animation.getImages()[animation.getCurrentAnimationFrame()]).toBe(IMAGE_NAMES.RHINO_CELEBRATE1)
 
 
-            // enough time passed
+
+            // enough time passed to move forwards
             animation.nextFrame(gameStartTime + ANIMATION_FRAME_SPEED_MS + 1)
             expect(animation.getCurrentAnimationFrame()).toBe(1);
             expect(animation.getImages()[animation.getCurrentAnimationFrame()]).toBe(IMAGE_NAMES.RHINO_CELEBRATE2)
 
             //more times passes so should loop back to first image
             animation.nextFrame(gameStartTime + (ANIMATION_FRAME_SPEED_MS * 2) + 1)
+            expect(animation.getCurrentAnimationFrame()).toBe(0);
+            expect(animation.getImages()[animation.getCurrentAnimationFrame()]).toBe(IMAGE_NAMES.RHINO_CELEBRATE1)
+
+            //remain on first image until can progress
+            animation.nextFrame(gameStartTime + (ANIMATION_FRAME_SPEED_MS * 2) + 100)
             expect(animation.getCurrentAnimationFrame()).toBe(0);
             expect(animation.getImages()[animation.getCurrentAnimationFrame()]).toBe(IMAGE_NAMES.RHINO_CELEBRATE1)
 

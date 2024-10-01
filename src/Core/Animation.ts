@@ -45,10 +45,12 @@ export class Animation {
         if (gameTime - this.curAnimationFrameTime >= this.animationFrameSpeed) {
 
 
-            // if looping and last frame then return to 1
-            if (this.curAnimationFrame >= this.images.length - 1) {
+            // check if reached last image
+            if (this.curAnimationFrame === this.images.length - 1) {
                 if (this.looping) {
                     this.curAnimationFrame = 0;
+                    this.curAnimationFrameTime = gameTime;
+
                 } else {
                     this.curAnimationFrameTime = null;
                     this.curAnimationFrame = 0;

@@ -103,6 +103,8 @@ We are looking forward to see what you come up with!!
 
  **Known bugs**
  - lots of repeasted code in checkIfHitObstacle
+ - can only jump single trees. This could be a feature
+ - Slight visual glitch on land
 
  **Vid**
  - test overview
